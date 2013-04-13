@@ -245,7 +245,9 @@ public class PictureActivity extends Activity {
 		i.putExtra(Intent.EXTRA_EMAIL  , new String[]{"lakshmipathyarjun6@gmail.com"});
 		i.putExtra(Intent.EXTRA_SUBJECT, "STUDENT SERVICE HOUR APPROVAL REQUEST");
 		i.putExtra(Intent.EXTRA_TEXT   , "A student has requested to update his or her service hour count.\n\n" +
-				"Name: " + studentName + "\n" + "ID #: " + studentID);
+				"Name: " + studentName + "\n" + "ID #: " + studentID +"\n\n" + "Dates: " + sharedPref.getString("Date", null) + 
+				"\n" + "Organization: " + sharedPref.getString("Organization", null) + "\n" + "Contribution: " + sharedPref.getString("Contribution", null)
+				+ "\n" + "Impact: " + sharedPref.getString("Impact", null) + "\n" + "Service Type: " + sharedPref.getString("Service", null));
 		try {
 		    startActivityForResult(Intent.createChooser(i, "Send mail via"), SENDING_EMAIL);
 		} catch (android.content.ActivityNotFoundException ex) {
