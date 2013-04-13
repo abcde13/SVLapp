@@ -39,6 +39,7 @@ public class MainForm extends Activity {
 		//EditText editText = (EditText) findViewById(R.id.edit_message);
 		//String data = editText.getText().toString();
 		//nextPage.putExtra();
+		//alwkejf]]fuck
 		startActivity(nextPage);
 	}
 	
