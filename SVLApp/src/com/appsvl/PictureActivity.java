@@ -16,6 +16,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+
 public class PictureActivity extends Activity {
 
 	Bitmap mImageBitmap;
@@ -40,6 +41,7 @@ public class PictureActivity extends Activity {
 		return true;
 	}
 	
+
 	public void takePicture(View view){
 		takePic(TAKING_PIC);
 	}

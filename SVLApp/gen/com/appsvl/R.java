@@ -76,10 +76,8 @@ public final class R {
         public static final int button_next=0x7f05000d;
         public static final int contribution_hint=0x7f050007;
         public static final int date_hint=0x7f050005;
-        public static final int error_field_required=0x7f050018;
-        public static final int error_incorrect_password=0x7f050017;
-        public static final int error_invalid_email=0x7f050015;
-        public static final int error_invalid_password=0x7f050016;
+        public static final int error_field_required=0x7f050016;
+        public static final int error_invalid_emailorpassword=0x7f050015;
         public static final int hours_hint=0x7f050008;
         public static final int impact_hint=0x7f050006;
         public static final int login_progress_signing_in=0x7f050014;
