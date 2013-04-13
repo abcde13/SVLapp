@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">SVL App</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_main_form">Service Details</string>
+    <string name="title_activity_log_in">Sign In</string>
+    <string name="title_activity_picture">Picture to Attach</string>
+   	<color name ="green">#A1EDA8</color>
+   	<color name="light_orange">#FFCC66</color>
+   	<string name="date_hint">Dates</string>
+   	<string name="impact_hint">Impact</string>
+   	<string name="contribution_hint">Contribution</string>
+   	<string name="hours_hint">Hours</string>
+   	<string name="service_type_text">Service type:</string>
+   	<string name="button_next"><b>NEXT</b></string>
+   	<string-array name="service_types">
+        <item>Environmental</item>
+        <item>Educational</item>
+        <item>Humanitarian</item>
+    </string-array>
+   	
+
+</resources>
