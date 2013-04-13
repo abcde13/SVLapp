@@ -1,21 +1,27 @@
 package com.appsvl;
 
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.view.Menu;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 public class MainForm extends Activity {
+	SharedPreferences sharedPref;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main_form);
 		populateServiceTypeSpinner();
+		sharedPref = this.getPreferences(Context.MODE_PRIVATE);
 	}
 	
 	private void populateServiceTypeSpinner(){
@@ -34,12 +40,25 @@ public class MainForm extends Activity {
 		return true;
 	}
 	
+	public void savePreferences(String key, String value){
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putString(key, value);
+		editor.commit();
+	}
+	
 	public void nextPage(View view){
+		EditText date = (EditText) findViewById(R.id.date);
+		EditText contribution = (EditText) findViewById(R.id.contribution_field);
+		EditText impact = (EditText) findViewById(R.id.impact_field);
+		EditText hours = (EditText) findViewById(R.id.hours_field);
+		Spinner service_spinner = (Spinner) findViewById(R.id.service_type_spinner);
+		String service = service_spinner.getSelectedItem().toString();
 		Intent nextPage = new Intent(this, PictureActivity.class);
-		//EditText editText = (EditText) findViewById(R.id.edit_message);
-		//String data = editText.getText().toString();
-		//nextPage.putExtra();
-		//alwkejf]]fuck
+		savePreferences("Date", date.getText().toString());
+		savePreferences("Contribution", contribution.getText().toString());
+		savePreferences("Impact", impact.getText().toString());
+		savePreferences("Hours", hours.getText().toString());
+		savePreferences("Service", service);
 		startActivity(nextPage);
 	}
 
