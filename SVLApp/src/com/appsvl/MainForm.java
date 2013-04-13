@@ -54,6 +54,7 @@ public class MainForm extends Activity {
 	
 	public void nextPage(View view){
 		EditText date = (EditText) findViewById(R.id.date);
+		EditText organization = (EditText) findViewById(R.id.organization);
 		EditText contribution = (EditText) findViewById(R.id.contribution_field);
 		EditText impact = (EditText) findViewById(R.id.impact_field);
 		EditText hours = (EditText) findViewById(R.id.hours_field);
@@ -61,6 +62,7 @@ public class MainForm extends Activity {
 		String service = service_spinner.getSelectedItem().toString();
 		Intent nextPage = new Intent(this, PictureActivity.class);
 		savePreferences("Date", date.getText().toString());
+		savePreferences("Organization", organization.getText().toString());
 		savePreferences("Contribution", contribution.getText().toString());
 		savePreferences("Impact", impact.getText().toString());
 		savePreferences("Hours", hours.getText().toString());
