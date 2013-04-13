@@ -23,6 +23,13 @@ public class MainForm extends Activity {
 		setContentView(R.layout.activity_main_form);
 		populateServiceTypeSpinner();
 		sharedPref = getPreferences(Context.MODE_PRIVATE);
+		EditText date = (EditText) findViewById(R.id.date);
+		EditText organization = (EditText) findViewById(R.id.organization);
+		EditText contribution = (EditText) findViewById(R.id.contribution_field);
+		EditText impact = (EditText) findViewById(R.id.impact_field);
+		EditText hours = (EditText) findViewById(R.id.hours_field);
+		date.setText(sharedPref.getString("Date", null));
+		
 	}
 	
 	private void populateServiceTypeSpinner(){
@@ -68,6 +75,5 @@ public class MainForm extends Activity {
 		savePreferences("Hours", hours.getText().toString());
 		savePreferences("Service", service);
 		startActivity(nextPage);
-		//CHANGE
 	}
 }
