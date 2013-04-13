@@ -14,6 +14,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 public class MainForm extends Activity {
+
 	public static SharedPreferences sharedPref;
 
 	@Override
@@ -46,7 +47,7 @@ public class MainForm extends Activity {
         editor.putString(key, value);
 		editor.commit();
 	}
-	;
+	
 	public static SharedPreferences getPreferenceValues(){
 		return(sharedPref);
 	}
@@ -66,5 +67,4 @@ public class MainForm extends Activity {
 		savePreferences("Service", service);
 		startActivity(nextPage);
 	}
-
 }

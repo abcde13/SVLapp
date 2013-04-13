@@ -1,5 +1,6 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/imglinearlayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/green"
@@ -43,14 +44,19 @@
             android:onClick="takePicture"/>
     </LinearLayout>
 
-    <Button
-        android:id="@+id/submit_button"
-        android:layout_width="wrap_content"
+    <ScrollView
+        android:id="@+id/imageScroll"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:background="@color/light_orange"
-        android:text="@string/submit_text"
-        android:onClick="submitForm" />
+        android:layout_weight="0.28" >
+
+        <LinearLayout
+            android:id="@+id/imageLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical" >
+        </LinearLayout>
+    </ScrollView>
 
 </LinearLayout>
 
