@@ -42,6 +42,5 @@ public class MainForm extends Activity {
 		//alwkejf]]fuck
 		startActivity(nextPage);
 	}
-	
 
 }
