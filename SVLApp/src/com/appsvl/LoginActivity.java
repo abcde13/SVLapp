@@ -147,7 +147,7 @@ public class LoginActivity extends Activity {
 			focusView = mPasswordView;
 			cancel = true;
 		} else if (!(mPassword.equals(password))) {
-			mPasswordView.setError(getString(R.string.error_invalid_password));
+			mPasswordView.setError(getString(R.string.error_incorrect_password));
 			focusView = mPasswordView;
 			cancel = true;
 		}
