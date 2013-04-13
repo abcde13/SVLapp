@@ -17,6 +17,7 @@ import android.graphics.Color;
 import android.graphics.Matrix;
 import android.view.Menu;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -55,6 +56,8 @@ public class PictureActivity extends Activity {
 		takePic(TAKING_PIC);
 	}
 	public void takePic(int actionCode){
+		if(imageLayout.getChildCount() > 0)
+		    imageLayout.removeAllViews();
 		Intent takePicture = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 		startActivityForResult(takePicture,actionCode);
 		
