@@ -65,28 +65,31 @@ public final class R {
         public static final int picture=0x7f090002;
     }
     public static final class string {
-        public static final int action_forgot_password=0x7f050010;
+        public static final int action_forgot_password=0x7f050013;
         public static final int action_settings=0x7f050001;
-        public static final int action_sign_in_register=0x7f05000e;
-        public static final int action_sign_in_short=0x7f05000f;
+        public static final int action_sign_in_register=0x7f050011;
+        public static final int action_sign_in_short=0x7f050012;
         public static final int app_name=0x7f050000;
-        public static final int button_next=0x7f05000a;
+        public static final int back_text=0x7f05000c;
+        public static final int button_next=0x7f05000d;
         public static final int contribution_hint=0x7f050007;
         public static final int date_hint=0x7f050005;
-        public static final int error_field_required=0x7f050015;
-        public static final int error_incorrect_password=0x7f050014;
-        public static final int error_invalid_email=0x7f050012;
-        public static final int error_invalid_password=0x7f050013;
+        public static final int error_field_required=0x7f050018;
+        public static final int error_incorrect_password=0x7f050017;
+        public static final int error_invalid_email=0x7f050015;
+        public static final int error_invalid_password=0x7f050016;
         public static final int hours_hint=0x7f050008;
         public static final int impact_hint=0x7f050006;
-        public static final int login_progress_signing_in=0x7f050011;
-        public static final int prompt_password=0x7f05000d;
+        public static final int login_progress_signing_in=0x7f050014;
+        public static final int prompt_password=0x7f050010;
         /**  Strings related to login 
          */
-        public static final int prompt_username=0x7f05000c;
+        public static final int prompt_username=0x7f05000f;
         public static final int service_type_text=0x7f050009;
+        public static final int submit_text=0x7f05000b;
+        public static final int take_pic=0x7f05000a;
         public static final int title_activity_log_in=0x7f050003;
-        public static final int title_activity_login=0x7f05000b;
+        public static final int title_activity_login=0x7f05000e;
         public static final int title_activity_main_form=0x7f050002;
         public static final int title_activity_picture=0x7f050004;
     }
