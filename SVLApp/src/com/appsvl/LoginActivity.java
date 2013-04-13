@@ -136,7 +136,7 @@ public class LoginActivity extends Activity {
 		String password = tempData.get(mUsername);	
 				
 		if (password == null){ // username not found
-			mUsernameView.setError(getString(R.string.error_invalid_email));
+			mUsernameView.setError(getString(R.string.error_invalid_emailorpassword));
 			focusView = mUsernameView;
 			cancel = true;
 			}
@@ -147,8 +147,8 @@ public class LoginActivity extends Activity {
 			focusView = mPasswordView;
 			cancel = true;
 		} else if (!(mPassword.equals(password))) {
-			mPasswordView.setError(getString(R.string.error_incorrect_password));
-			focusView = mPasswordView;
+			mUsernameView.setError(getString(R.string.error_invalid_emailorpassword));
+			focusView = mUsernameView;
 			cancel = true;
 		}
 
@@ -247,7 +247,7 @@ public class LoginActivity extends Activity {
 				finish();
 			} else {
 				mPasswordView
-						.setError(getString(R.string.error_incorrect_password));
+						.setError(getString(R.string.error_invalid_emailorpassword));
 				mPasswordView.requestFocus();
 			}
 		}
