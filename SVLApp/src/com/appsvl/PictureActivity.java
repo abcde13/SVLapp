@@ -4,20 +4,25 @@ import java.util.List;
 
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.view.Menu;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 public class PictureActivity extends Activity {
 
 	Bitmap mImageBitmap;
 	ImageView mImageView;
+	Button submitButton;
 	
 	public static final int TAKING_PIC = 1;
 	@Override
@@ -47,9 +52,19 @@ public class PictureActivity extends Activity {
 			
 		}
 	}
+	@SuppressLint("ResourceAsColor")
 	private void handleSmallPhoto(Intent intent){
 		Bundle extras = intent.getExtras();
 		mImageBitmap = (Bitmap) extras.get("data");
+		if(submitButton == null)
+		{
+			submitButton = new Button(this);
+			submitButton.setText("Submit");
+			submitButton.setTextSize(30.0f);
+			submitButton.setBackgroundColor(Color.CYAN);
+			LinearLayout x = (LinearLayout) findViewById(R.id.imglinearlayout);
+			x.addView(submitButton);
+		}
 	}
 
 
