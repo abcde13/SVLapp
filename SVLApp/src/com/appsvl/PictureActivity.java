@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.util.List;
@@ -41,7 +42,7 @@ import android.widget.Toast;
 public class PictureActivity extends Activity {
 	
 	SharedPreferences sharedPref;
-	public static Bitmap mImageBitmap;
+	Bitmap mImageBitmap;
 	ImageView mImageView;
 	LinearLayout imageLayout;
 	Button submitButton;
@@ -105,7 +106,9 @@ public class PictureActivity extends Activity {
 			mImageView = new ImageView(this);
 
 			mImageView.setImageBitmap(mImageBitmap);
-			imageLayout.addView(mImageView);		
+			imageLayout.addView(mImageView);	
+			createExternalStoragePrivateFile();
+			
 		}
 		else if(requestCode == SENDING_EMAIL){
 			Toast.makeText(PictureActivity.this, "Upload successful", Toast.LENGTH_SHORT).show();
@@ -120,6 +123,26 @@ public class PictureActivity extends Activity {
 			startActivity(nextPage);
 		}
 	}
+	
+	void createExternalStoragePrivateFile() {
+	    // Create a path where we will place our private file on external
+	    // storage.
+		String root = Environment.getExternalStorageDirectory().toString();
+		String fname = "service.png";
+	    File file = new File (root, fname);
+	    if (file.exists ()) file.delete (); 
+
+	    try {
+	    		FileOutputStream out = new FileOutputStream(file);
+	        	mImageBitmap.compress(Bitmap.CompressFormat.PNG, 90, out);
+	        	out.flush();
+	        	out.close();
+
+	    } catch (Exception e) {
+	           e.printStackTrace();
+	    }
+	}
+	
 	
 	private void resizeImage(){
 		int width = mImageBitmap.getWidth();
