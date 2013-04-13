@@ -1,8 +1,16 @@
 package com.appsvl;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.util.List;
 
 import android.os.Bundle;
+import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.provider.MediaStore;
 import android.annotation.SuppressLint;
@@ -13,8 +21,12 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.graphics.Bitmap;
+import android.graphics.Bitmap.CompressFormat;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Matrix;
+import android.graphics.drawable.BitmapDrawable;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,19 +41,39 @@ import android.widget.Toast;
 public class PictureActivity extends Activity {
 	
 	SharedPreferences sharedPref;
-	Bitmap mImageBitmap;
+	public static Bitmap mImageBitmap;
 	ImageView mImageView;
 	LinearLayout imageLayout;
 	Button submitButton;
 	
 	public static final int TAKING_PIC = 1;
+	public static final int SENDING_EMAIL = 2;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		sharedPref = MainForm.getPreferenceValues();
 		setContentView(R.layout.activity_picture);
 		imageLayout = (LinearLayout)findViewById(R.id.imageLayout);
-		if(mImageView!= null){
-			imageLayout.addView(mImageView);	
+		if(mImageBitmap != null){
+			mImageView = new ImageView(this);
+			imageLayout.addView(mImageView);
+			mImageView.setImageBitmap(mImageBitmap);
+			if(submitButton == null)
+			{
+				submitButton = new Button(this);
+				submitButton.setText("Submit");
+				submitButton.setTextSize(30.0f);
+				submitButton.setBackgroundColor(Color.CYAN);
+				LinearLayout x = (LinearLayout) findViewById(R.id.imglinearlayout);
+				x.addView(submitButton);
+				submitButton.setOnClickListener(new View.OnClickListener() {
+				    @Override
+				    public void onClick(View view) {
+				        submitForm(view);
+				    }
+				});
+			}
 		}
 	}
 
@@ -53,8 +85,9 @@ public class PictureActivity extends Activity {
 	}
 	
 
-	public void takePicture(View view){
+	public void takePicture(View view) throws FileNotFoundException{
 		takePic(TAKING_PIC);
+		
 	}
 	public void takePic(int actionCode){
 		if(imageLayout.getChildCount() > 0)
@@ -68,8 +101,19 @@ public class PictureActivity extends Activity {
 			resizeImage();
 			mImageView = new ImageView(this);
 			mImageView.setImageBitmap(mImageBitmap);
-			imageLayout.addView(mImageView);	
-			
+			imageLayout.addView(mImageView);		
+		}
+		else if(requestCode == SENDING_EMAIL){
+			Toast.makeText(PictureActivity.this, "Upload successful", Toast.LENGTH_SHORT).show();
+			Intent nextPage = new Intent(this, MainForm.class);
+			MainForm.setPreferenceValuesToNull();
+			mImageBitmap = null;
+			mImageView = null;
+			ViewGroup layout = (ViewGroup) submitButton.getParent();
+			if(null!=layout) //for safety only  as you are doing onClick
+			  layout.removeView(submitButton);
+			submitButton = null;
+			startActivity(nextPage);
 		}
 	}
 	
@@ -84,6 +128,7 @@ public class PictureActivity extends Activity {
 	    matrix.postScale(scaleWidth, scaleHeight);
 	    // recreate the new Bitmap
 	    mImageBitmap = Bitmap.createBitmap(mImageBitmap, 0, 0, width, height, matrix, false);
+	    
 	}
 	
 	@SuppressLint("ResourceAsColor")
@@ -123,7 +168,7 @@ public class PictureActivity extends Activity {
 	public void submitForm(View view){	//Submit button just prints out values submitted from form.
 		sharedPref = MainForm.getPreferenceValues();
 		Intent i = new Intent(Intent.ACTION_SEND);
-		String studentName = "Arjun";
+		String studentName = "Arjun Lakshmipathy";
 		String studentID = "8140272";
 		i.setType("message/rfc822");
 		i.putExtra(Intent.EXTRA_EMAIL  , new String[]{"lakshmipathyarjun6@gmail.com"});
@@ -131,7 +176,7 @@ public class PictureActivity extends Activity {
 		i.putExtra(Intent.EXTRA_TEXT   , "A student has requested to update his or her service hour count.\n\n" +
 				"Name: " + studentName + "\n" + "ID #: " + studentID);
 		try {
-		    startActivity(Intent.createChooser(i, "Send mail via"));
+		    startActivityForResult(Intent.createChooser(i, "Send mail via"), SENDING_EMAIL);
 		} catch (android.content.ActivityNotFoundException ex) {
 		    Toast.makeText(PictureActivity.this, "There are no email clients installed.", Toast.LENGTH_SHORT).show();
 		}

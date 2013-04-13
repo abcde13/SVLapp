@@ -81,6 +81,10 @@ public class MainForm extends Activity {
 		return(sharedPref);
 	}
 	
+	public static void setPreferenceValuesToNull(){
+		sharedPref = null;
+	}
+	
 	public void nextPage(View view){
 		EditText date = (EditText) findViewById(R.id.date);
 		EditText organization = (EditText) findViewById(R.id.organization);
@@ -97,6 +101,5 @@ public class MainForm extends Activity {
 		savePreferences("Hours", hours.getText().toString());
 		savePreferences("Service", service);
 		startActivity(nextPage);
-		//CHANGE
 	}
 }
