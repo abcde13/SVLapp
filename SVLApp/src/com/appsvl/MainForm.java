@@ -81,6 +81,10 @@ public class MainForm extends Activity {
 		return(sharedPref);
 	}
 	
+	public static void setPreferenceValuesToNull(){
+		sharedPref = null;
+	}
+	
 	public void nextPage(View view){
 		EditText date = (EditText) findViewById(R.id.date);
 		EditText organization = (EditText) findViewById(R.id.organization);

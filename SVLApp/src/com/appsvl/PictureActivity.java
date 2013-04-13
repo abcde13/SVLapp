@@ -48,6 +48,8 @@ public class PictureActivity extends Activity {
 	TextView errorCase;
 	
 	public static final int TAKING_PIC = 1;
+	public static final int SENDING_EMAIL = 2;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -101,8 +103,21 @@ public class PictureActivity extends Activity {
 			handleSmallPhoto(data);
 			resizeImage();
 			mImageView = new ImageView(this);
+
 			mImageView.setImageBitmap(mImageBitmap);
-			imageLayout.addView(mImageView);
+			imageLayout.addView(mImageView);		
+		}
+		else if(requestCode == SENDING_EMAIL){
+			Toast.makeText(PictureActivity.this, "Upload successful", Toast.LENGTH_SHORT).show();
+			Intent nextPage = new Intent(this, MainForm.class);
+			MainForm.setPreferenceValuesToNull();
+			mImageBitmap = null;
+			mImageView = null;
+			ViewGroup layout = (ViewGroup) submitButton.getParent();
+			if(null!=layout) //for safety only  as you are doing onClick
+			  layout.removeView(submitButton);
+			submitButton = null;
+			startActivity(nextPage);
 		}
 	}
 	
@@ -201,7 +216,7 @@ public class PictureActivity extends Activity {
 		
 
 		Intent i = new Intent(Intent.ACTION_SEND);
-		String studentName = "Arjun";
+		String studentName = "Arjun Lakshmipathy";
 		String studentID = "8140272";
 		i.setType("message/rfc822");
 		i.putExtra(Intent.EXTRA_EMAIL  , new String[]{"lakshmipathyarjun6@gmail.com"});
@@ -209,10 +224,11 @@ public class PictureActivity extends Activity {
 		i.putExtra(Intent.EXTRA_TEXT   , "A student has requested to update his or her service hour count.\n\n" +
 				"Name: " + studentName + "\n" + "ID #: " + studentID);
 		try {
-		    startActivity(Intent.createChooser(i, "Send mail via"));
+		    startActivityForResult(Intent.createChooser(i, "Send mail via"), SENDING_EMAIL);
 		} catch (android.content.ActivityNotFoundException ex) {
 		    Toast.makeText(PictureActivity.this, "There are no email clients installed.", Toast.LENGTH_SHORT).show();
 		}
+		
 	}
 	
 }
