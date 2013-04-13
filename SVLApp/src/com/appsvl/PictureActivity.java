@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.graphics.Matrix;
 import android.view.Menu;
 import android.view.View;
@@ -29,9 +30,6 @@ public class PictureActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_picture);
 		imageLayout = (LinearLayout)findViewById(R.id.imageLayout);
-		if(mImageView!= null){
-			imageLayout.addView(mImageView);	
-		}
 	}
 
 	@Override
@@ -46,12 +44,15 @@ public class PictureActivity extends Activity {
 		takePic(TAKING_PIC);
 	}
 	public void takePic(int actionCode){
+		if( imageLayout.getChildCount() > 0) 
+		    imageLayout.removeAllViews(); 
 		Intent takePicture = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 		startActivityForResult(takePicture,actionCode);
 		
 	}
 	protected void onActivityResult(int requestCode,int resultCode,Intent data){
 		if(requestCode == TAKING_PIC){
+			mImageBitmap = null;
 			handleSmallPhoto(data);
 			resizeImage();
 			mImageView = new ImageView(this);
