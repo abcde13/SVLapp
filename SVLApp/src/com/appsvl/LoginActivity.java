@@ -1,5 +1,6 @@
 package com.appsvl;
 
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -13,6 +14,7 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -64,9 +66,8 @@ public class LoginActivity extends Activity {
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-
 		
+		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_login);
 
 		// Set up the login form.
@@ -87,6 +88,7 @@ public class LoginActivity extends Activity {
 						return false;
 					}
 				});
+		
 
 		mLoginFormView = findViewById(R.id.login_form);
 		mLoginStatusView = findViewById(R.id.login_status);

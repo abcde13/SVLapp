@@ -18,6 +18,7 @@
    	<string name="submit_text">Submit</string>
    	<string name="back_text">Back</string>
    	<string name="button_next"><b>NEXT</b></string>
+   	<string name="error_empty_field">All fields must be filled out!</string>
    	<string-array name="service_types">
         <item>Environmental</item>
         <item>Educational</item>

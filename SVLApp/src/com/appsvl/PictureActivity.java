@@ -8,7 +8,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.util.List;
-
 import android.os.Bundle;
 import android.os.Environment;
 import android.preference.PreferenceManager;
@@ -27,6 +26,7 @@ import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.drawable.BitmapDrawable;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,6 +45,7 @@ public class PictureActivity extends Activity {
 	ImageView mImageView;
 	LinearLayout imageLayout;
 	Button submitButton;
+	TextView errorCase;
 	
 	public static final int TAKING_PIC = 1;
 	public static final int SENDING_EMAIL = 2;
@@ -61,11 +62,13 @@ public class PictureActivity extends Activity {
 			mImageView.setImageBitmap(mImageBitmap);
 			if(submitButton == null)
 			{
+				errorCase = new TextView(this);
 				submitButton = new Button(this);
 				submitButton.setText("Submit");
 				submitButton.setTextSize(30.0f);
 				submitButton.setBackgroundColor(Color.CYAN);
 				LinearLayout x = (LinearLayout) findViewById(R.id.imglinearlayout);
+				x.addView(errorCase);
 				x.addView(submitButton);
 				submitButton.setOnClickListener(new View.OnClickListener() {
 				    @Override
@@ -100,6 +103,7 @@ public class PictureActivity extends Activity {
 			handleSmallPhoto(data);
 			resizeImage();
 			mImageView = new ImageView(this);
+
 			mImageView.setImageBitmap(mImageBitmap);
 			imageLayout.addView(mImageView);		
 		}
@@ -137,11 +141,13 @@ public class PictureActivity extends Activity {
 		mImageBitmap = (Bitmap) extras.get("data");
 		if(submitButton == null)
 		{
+			errorCase = new TextView(this);
 			submitButton = new Button(this);
 			submitButton.setText("Submit");
 			submitButton.setTextSize(30.0f);
 			submitButton.setBackgroundColor(Color.CYAN);
 			LinearLayout x = (LinearLayout) findViewById(R.id.imglinearlayout);
+			x.addView(errorCase);
 			x.addView(submitButton);
 			submitButton.setOnClickListener(new View.OnClickListener() {
 			    @Override
@@ -167,6 +173,48 @@ public class PictureActivity extends Activity {
 	
 	public void submitForm(View view){	//Submit button just prints out values submitted from form.
 		sharedPref = MainForm.getPreferenceValues();
+		String n;
+		if(sharedPref != null){
+			errorCase.setGravity(Gravity.CENTER);
+			errorCase.setTextColor(Color.RED);
+			errorCase.setTextSize(20);
+			n = sharedPref.getString("Date", null);
+			if(n.equals(""))
+			{
+				errorCase.setText(getString(R.string.error_empty_field));
+				return;
+			}
+			n = sharedPref.getString("Organization", null);
+			if(n.equals(""))
+			{
+				errorCase.setText(getString(R.string.error_empty_field));
+				return;
+			}
+			n = sharedPref.getString("Contribution", null);
+			if(n.equals(""))
+			{
+				errorCase.setText(getString(R.string.error_empty_field));
+				return;
+			}
+			n = sharedPref.getString("Impact", null);
+			if(n.equals(""))
+			{
+				errorCase.setText(getString(R.string.error_empty_field));
+				return;
+			}
+			n = sharedPref.getString("Hours", null);
+			if(n.equals(""))
+			{
+				errorCase.setText(getString(R.string.error_empty_field));
+				return;
+			}
+		}
+		else if(sharedPref == null){
+				errorCase.setText(getString(R.string.error_empty_field));
+				return;	
+		}
+		
+
 		Intent i = new Intent(Intent.ACTION_SEND);
 		String studentName = "Arjun Lakshmipathy";
 		String studentID = "8140272";
