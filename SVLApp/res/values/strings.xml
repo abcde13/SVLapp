@@ -13,6 +13,9 @@
    	<string name="contribution_hint">Contribution</string>
    	<string name="hours_hint">Hours</string>
    	<string name="service_type_text">Service type:</string>
+   	<string name="take_pic">Take Picture</string>
+   	<string name="submit_text">Submit</string>
+   	<string name="back_text">Back</string>
    	<string name="button_next"><b>NEXT</b></string>
    	<string-array name="service_types">
         <item>Environmental</item>

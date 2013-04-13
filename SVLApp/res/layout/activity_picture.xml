@@ -27,10 +27,10 @@
         <Button
             android:id="@+id/back_button"
             style="?android:attr/buttonStyleSmall"
-            android:layout_width="wrap_content"
+            android:layout_width="73dp"
             android:layout_height="wrap_content"
-            android:layout_weight="0.34"
-            android:text="Back" />
+            android:layout_weight="0.85"
+            android:text="@string/back_text" />
 
         <Button
             android:id="@+id/retake_button"
@@ -38,7 +38,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="Retake" />
+            android:text="@string/take_pic" 
+            android:onClick="takePicture"/>
     </LinearLayout>
 
     <Button
@@ -46,6 +47,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="Submit" />
+        android:text="@string/submit_text" />
 
 </LinearLayout>
