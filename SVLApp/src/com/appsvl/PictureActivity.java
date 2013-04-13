@@ -36,6 +36,7 @@ import android.widget.TextView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 public class PictureActivity extends Activity {
 	
@@ -90,8 +91,7 @@ public class PictureActivity extends Activity {
 		if(imageLayout.getChildCount() > 0)
 		    imageLayout.removeAllViews();
 		Intent takePicture = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-		startActivityForResult(takePicture,actionCode);
-		
+		startActivityForResult(takePicture,actionCode);	
 	}
 	protected void onActivityResult(int requestCode,int resultCode,Intent data){
 		if(requestCode == TAKING_PIC){
@@ -141,7 +141,6 @@ public class PictureActivity extends Activity {
 		}
 	}
 
-
 	public static boolean isIntentAvailable(Context context, String action) {
 	    final PackageManager packageManager = context.getPackageManager();
 	    final Intent intent = new Intent(action);
@@ -156,10 +155,20 @@ public class PictureActivity extends Activity {
 	}
 	
 	public void submitForm(View view){	//Submit button just prints out values submitted from form.
-		
-		TextView text = new TextView(this);
-		text.setText(sharedPref.getString("Date", null) + sharedPref.getString("Impact", null) + sharedPref.getString("Contribution", null)+ sharedPref.getString("Hours", null)+ sharedPref.getString("Service", null));
-		setContentView(text);		
+		sharedPref = MainForm.getPreferenceValues();
+		Intent i = new Intent(Intent.ACTION_SEND);
+		String studentName = "Arjun";
+		String studentID = "8140272";
+		i.setType("message/rfc822");
+		i.putExtra(Intent.EXTRA_EMAIL  , new String[]{"lakshmipathyarjun6@gmail.com"});
+		i.putExtra(Intent.EXTRA_SUBJECT, "STUDENT SERVICE HOUR APPROVAL REQUEST");
+		i.putExtra(Intent.EXTRA_TEXT   , "A student has requested to update his or her service hour count.\n\n" +
+				"Name: " + studentName + "\n" + "ID #: " + studentID);
+		try {
+		    startActivity(Intent.createChooser(i, "Send mail via"));
+		} catch (android.content.ActivityNotFoundException ex) {
+		    Toast.makeText(PictureActivity.this, "There are no email clients installed.", Toast.LENGTH_SHORT).show();
+		}
 	}
 	
 }
