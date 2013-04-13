@@ -2,8 +2,11 @@ package com.appsvl;
 
 import android.os.Bundle;
 import android.app.Activity;
+import android.content.Intent;
 import android.view.Menu;
+import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.Spinner;
 
 public class MainForm extends Activity {
@@ -30,5 +33,15 @@ public class MainForm extends Activity {
 		getMenuInflater().inflate(R.menu.main_form, menu);
 		return true;
 	}
+	
+	public void nextPage(View view){
+		Intent nextPage = new Intent(this, PictureActivity.class);
+		//EditText editText = (EditText) findViewById(R.id.edit_message);
+		//String data = editText.getText().toString();
+		//nextPage.putExtra();
+		//alwkejf]]fuck
+		startActivity(nextPage);
+	}
+	
 
 }

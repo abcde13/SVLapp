@@ -23,5 +23,4 @@ public class PictureActivity extends Activity {
 	private void takePicture(View view){
 		//takePic(TAKING_PIC)
 	}
-
 }
