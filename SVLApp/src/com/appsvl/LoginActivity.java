@@ -1,5 +1,6 @@
 package com.appsvl;
 
+import java.io.FileOutputStream;
 import java.util.Hashtable;
 
 import android.R.string;
@@ -7,6 +8,7 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -57,8 +59,19 @@ public class LoginActivity extends Activity {
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		
 		super.onCreate(savedInstanceState);
+		String filename = "myfile";
+		String string = "Hello world!";
+		FileOutputStream outputStream;
 
+		try {
+		  outputStream = openFileOutput(filename, Context.MODE_PRIVATE);
+		  outputStream.write(string.getBytes());
+		  outputStream.close();
+		} catch (Exception e) {
+		  e.printStackTrace();
+		}
 		setContentView(R.layout.activity_login);
 
 		// Set up the login form.
@@ -79,6 +92,7 @@ public class LoginActivity extends Activity {
 						return false;
 					}
 				});
+		
 
 		mLoginFormView = findViewById(R.id.login_form);
 		mLoginStatusView = findViewById(R.id.login_status);

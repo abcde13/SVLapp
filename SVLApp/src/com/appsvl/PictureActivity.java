@@ -67,8 +67,7 @@ public class PictureActivity extends Activity {
 			resizeImage();
 			mImageView = new ImageView(this);
 			mImageView.setImageBitmap(mImageBitmap);
-			imageLayout.addView(mImageView);	
-			
+			imageLayout.addView(mImageView);				
 		}
 	}
 	
