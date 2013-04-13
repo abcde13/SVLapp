@@ -66,7 +66,7 @@ public class PictureActivity extends Activity {
 				submitButton = new Button(this);
 				submitButton.setText("Submit");
 				submitButton.setTextSize(30.0f);
-				submitButton.setBackgroundColor(Color.CYAN);
+				submitButton.setBackgroundResource(R.color.light_orange);
 				LinearLayout x = (LinearLayout) findViewById(R.id.imglinearlayout);
 				x.addView(errorCase);
 				x.addView(submitButton);
@@ -145,7 +145,7 @@ public class PictureActivity extends Activity {
 			submitButton = new Button(this);
 			submitButton.setText("Submit");
 			submitButton.setTextSize(30.0f);
-			submitButton.setBackgroundColor(Color.CYAN);
+			submitButton.setBackgroundResource(R.color.light_orange);
 			LinearLayout x = (LinearLayout) findViewById(R.id.imglinearlayout);
 			x.addView(errorCase);
 			x.addView(submitButton);
