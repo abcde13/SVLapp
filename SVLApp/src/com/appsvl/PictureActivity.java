@@ -59,8 +59,7 @@ public class PictureActivity extends Activity {
 		if(imageLayout.getChildCount() > 0)
 		    imageLayout.removeAllViews();
 		Intent takePicture = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-		startActivityForResult(takePicture,actionCode);
-		
+		startActivityForResult(takePicture,actionCode);	
 	}
 	protected void onActivityResult(int requestCode,int resultCode,Intent data){
 		if(requestCode == TAKING_PIC){

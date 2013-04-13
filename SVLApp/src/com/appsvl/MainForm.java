@@ -15,13 +15,42 @@ import android.widget.TextView;
 
 public class MainForm extends Activity {
 
-	public static SharedPreferences sharedPref;
+	public static SharedPreferences sharedPref = null;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main_form);
 		populateServiceTypeSpinner();
+		EditText value = (EditText) findViewById(R.id.date);
+		String n;
+		Spinner service;
+		ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+		        R.array.service_types, android.R.layout.simple_spinner_item);
+		if(sharedPref != null){
+			n = sharedPref.getString("Date", null);
+			if(!n.equals(null))
+				value.setText(n);
+			value = (EditText) findViewById(R.id.organization);
+			n = sharedPref.getString("Organization", null);
+			if(!n.equals(null))
+				value.setText(n);
+			service = (Spinner) findViewById(R.id.service_type_spinner);
+			populateServiceTypeSpinner();
+			service.setSelection(adapter.getPosition(sharedPref.getString("Service", "0")));
+			value = (EditText) findViewById(R.id.contribution_field);
+			n = sharedPref.getString("Contribution", null);
+			if(!n.equals(null))
+				value.setText(n);
+			value = (EditText) findViewById(R.id.impact_field);
+			n = sharedPref.getString("Impact", null);
+			if(!n.equals(null))
+				value.setText(n);
+			value = (EditText) findViewById(R.id.hours_field);
+			n = sharedPref.getString("Hours", null);
+			if(!n.equals(null))
+				value.setText(n);
+		}
 		sharedPref = getPreferences(Context.MODE_PRIVATE);
 	}
 	
