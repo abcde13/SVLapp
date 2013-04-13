@@ -14,14 +14,14 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 public class MainForm extends Activity {
-	SharedPreferences sharedPref;
+	public static SharedPreferences sharedPref;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main_form);
 		populateServiceTypeSpinner();
-		sharedPref = this.getPreferences(Context.MODE_PRIVATE);
+		sharedPref = getPreferences(Context.MODE_PRIVATE);
 	}
 	
 	private void populateServiceTypeSpinner(){
@@ -41,9 +41,14 @@ public class MainForm extends Activity {
 	}
 	
 	public void savePreferences(String key, String value){
+		sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
         SharedPreferences.Editor editor = sharedPref.edit();
         editor.putString(key, value);
 		editor.commit();
+	}
+	;
+	public static SharedPreferences getPreferenceValues(){
+		return(sharedPref);
 	}
 	
 	public void nextPage(View view){

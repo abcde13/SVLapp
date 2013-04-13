@@ -3,19 +3,25 @@ package com.appsvl;
 import java.util.List;
 
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.provider.MediaStore;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.graphics.Bitmap;
 import android.view.Menu;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
+import android.widget.TextView;
 
 public class PictureActivity extends Activity {
-
+	
+	SharedPreferences sharedPref;
 	Bitmap mImageBitmap;
 	ImageView mImageView;
 	
@@ -60,7 +66,18 @@ public class PictureActivity extends Activity {
 	    List<ResolveInfo> list =
 	            packageManager.queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY);
 	    return list.size() > 0;
+	}
 	
+	public void backPage(View view){
+		Intent backPage = new Intent(this, MainForm.class);
+		startActivity(backPage);
+	}
+	
+	public void submitForm(View view){	//Submit button just prints out values submitted from form.
+		sharedPref = MainForm.getPreferenceValues();
+		TextView text = new TextView(this);
+		text.setText(sharedPref.getString("Date", null) + sharedPref.getString("Impact", null) + sharedPref.getString("Contribution", null)+ sharedPref.getString("Hours", null)+ sharedPref.getString("Service", null));
+		setContentView(text);		
 	}
 	
 }

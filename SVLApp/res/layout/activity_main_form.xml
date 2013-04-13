@@ -99,7 +99,7 @@
                 android:textSize="@dimen/login_field_size" />
 
             <Button
-                android:id="@+id/back_button"
+                android:id="@+id/next_button"
                 style="?android:attr/buttonStyleSmall"
                 android:layout_width="124dp"
                 android:layout_height="wrap_content"

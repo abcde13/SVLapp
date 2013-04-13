@@ -30,7 +30,8 @@
             android:layout_width="73dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.85"
-            android:text="@string/back_text" />
+            android:text="@string/back_text"
+            android:onClick="backPage" />
 
         <Button
             android:id="@+id/retake_button"
@@ -43,12 +44,13 @@
     </LinearLayout>
 
     <Button
-        android:id="@+id/button1"
+        android:id="@+id/submit_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:background="@color/light_orange"
-        android:text="@string/submit_text" />
+        android:text="@string/submit_text"
+        android:onClick="submitForm" />
 
 </LinearLayout>
 
