@@ -61,17 +61,6 @@ public class LoginActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		
 		super.onCreate(savedInstanceState);
-		String filename = "myfile";
-		String string = "Hello world!";
-		FileOutputStream outputStream;
-
-		try {
-		  outputStream = openFileOutput(filename, Context.MODE_PRIVATE);
-		  outputStream.write(string.getBytes());
-		  outputStream.close();
-		} catch (Exception e) {
-		  e.printStackTrace();
-		}
 		setContentView(R.layout.activity_login);
 
 		// Set up the login form.
