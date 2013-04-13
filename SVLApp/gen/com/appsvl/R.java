@@ -33,13 +33,15 @@ public final class R {
         public static final int ic_launcher2=0x7f020001;
     }
     public static final class id {
-        public static final int action_forgot_password=0x7f0a0012;
-        public static final int action_settings=0x7f0a0013;
+        public static final int action_forgot_password=0x7f0a0014;
+        public static final int action_settings=0x7f0a0015;
         public static final int back_button=0x7f0a000f;
-        public static final int button1=0x7f0a0011;
+        public static final int button1=0x7f0a0013;
         public static final int contribution_field=0x7f0a000c;
         public static final int date=0x7f0a0009;
         public static final int hours_field=0x7f0a000e;
+        public static final int imageLayout=0x7f0a0012;
+        public static final int imageScroll=0x7f0a0011;
         public static final int impact_field=0x7f0a000d;
         public static final int login=0x7f0a0006;
         public static final int login_form=0x7f0a0002;
