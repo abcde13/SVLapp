@@ -31,7 +31,8 @@
             android:layout_width="73dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.85"
-            android:text="@string/back_text" />
+            android:text="@string/back_text"
+            android:onClick="backPage" />
 
         <Button
             android:id="@+id/retake_button"
@@ -58,3 +59,4 @@
     </ScrollView>
 
 </LinearLayout>
+
