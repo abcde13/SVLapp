@@ -9,6 +9,8 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.util.List;
+
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.preference.PreferenceManager;
@@ -42,11 +44,12 @@ import android.widget.Toast;
 public class PictureActivity extends Activity {
 	
 	SharedPreferences sharedPref;
-	Bitmap mImageBitmap;
+	public static Bitmap mImageBitmap;
 	ImageView mImageView;
 	LinearLayout imageLayout;
 	Button submitButton;
 	TextView errorCase;
+	File file;
 	
 	public static final int TAKING_PIC = 1;
 	public static final int SENDING_EMAIL = 2;
@@ -129,7 +132,7 @@ public class PictureActivity extends Activity {
 	    // storage.
 		String root = Environment.getExternalStorageDirectory().toString();
 		String fname = "service.png";
-	    File file = new File (root, fname);
+	    file = new File (root, fname);
 	    if (file.exists ()) file.delete (); 
 
 	    try {
@@ -245,9 +248,9 @@ public class PictureActivity extends Activity {
 		i.putExtra(Intent.EXTRA_EMAIL  , new String[]{"lakshmipathyarjun6@gmail.com"});
 		i.putExtra(Intent.EXTRA_SUBJECT, "STUDENT SERVICE HOUR APPROVAL REQUEST");
 		i.putExtra(Intent.EXTRA_TEXT   , "A student has requested to update his or her service hour count.\n\n" +
-				"Name: " + studentName + "\n" + "ID #: " + studentID +"\n\n" + "Dates: " + sharedPref.getString("Date", null) + 
-				"\n" + "Organization: " + sharedPref.getString("Organization", null) + "\n" + "Contribution: " + sharedPref.getString("Contribution", null)
-				+ "\n" + "Impact: " + sharedPref.getString("Impact", null) + "\n" + "Service Type: " + sharedPref.getString("Service", null));
+				"Name: " + studentName + "\n" + "ID #: " + studentID);
+		i.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(file));
+
 		try {
 		    startActivityForResult(Intent.createChooser(i, "Send mail via"), SENDING_EMAIL);
 		} catch (android.content.ActivityNotFoundException ex) {
