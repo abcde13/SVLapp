@@ -1,9 +1,13 @@
 package com.appsvl;
 
+import java.util.Hashtable;
+
+import android.R.string;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -24,7 +28,7 @@ public class LoginActivity extends Activity {
 	 * A dummy authentication store containing known user names and passwords.
 	 * TODO: remove after connecting to a real authentication system.
 	 */
-	private static final String[] DUMMY_CREDENTIALS = new String[] {
+	private static final String[] DUMMY_USERNAMES = new String[] {
 			"foo@example.com:hello", "bar@example.com:world" };
 
 	/**
@@ -47,7 +51,10 @@ public class LoginActivity extends Activity {
 	private View mLoginFormView;
 	private View mLoginStatusView;
 	private TextView mLoginStatusMessageView;
-
+	
+	// Temporary Test Database
+	private Hashtable<String, String> tempData;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -102,6 +109,11 @@ public class LoginActivity extends Activity {
 		if (mAuthTask != null) {
 			return;
 		}
+		
+		// Create the temporary database
+		tempData = new Hashtable<String, String>(DUMMY_USERNAMES.length);
+		tempData.put(DUMMY_USERNAMES[0], "testpassword1");
+		tempData.put(DUMMY_USERNAMES[1], "testpassword2");
 
 		// Reset errors.
 		mUsernameView.setError(null);
@@ -113,36 +125,47 @@ public class LoginActivity extends Activity {
 
 		boolean cancel = false;
 		View focusView = null;
+		
+		// Check for a valid email address.
+		if (TextUtils.isEmpty(mUsername)) {
+			mUsernameView.setError(getString(R.string.error_field_required));
+			focusView = mUsernameView;
+			cancel = true;
+			} 
+			
+		String password = tempData.get(mUsername);	
+				
+		if (password == null){ // username not found
+			mUsernameView.setError(getString(R.string.error_invalid_email));
+			focusView = mUsernameView;
+			cancel = true;
+			}
 
 		// Check for a valid password.
 		if (TextUtils.isEmpty(mPassword)) {
 			mPasswordView.setError(getString(R.string.error_field_required));
 			focusView = mPasswordView;
 			cancel = true;
-		} else if (mPassword.length() < 4) {
+		} else if (!(mPassword.equals(password))) {
 			mPasswordView.setError(getString(R.string.error_invalid_password));
 			focusView = mPasswordView;
 			cancel = true;
 		}
 
-		// Check for a valid email address.
-		if (TextUtils.isEmpty(mUsername)) {
-			mUsernameView.setError(getString(R.string.error_field_required));
-			focusView = mUsernameView;
-			cancel = true;
-		} 
-
 		if (cancel) {
 			// There was an error; don't attempt login and focus the first
 			// form field with an error.
 			focusView.requestFocus();
-		} else {
+		} 
+		else {
 			// Show a progress spinner, and kick off a background task to
 			// perform the user login attempt.
+			Intent moveOn = new Intent(this, MainForm.class);
 			mLoginStatusMessageView.setText(R.string.login_progress_signing_in);
 			showProgress(true);
 			mAuthTask = new UserLoginTask();
 			mAuthTask.execute((Void) null);
+			startActivity(moveOn);
 		}
 	}
 
@@ -203,7 +226,7 @@ public class LoginActivity extends Activity {
 				return false;
 			}
 
-			for (String credential : DUMMY_CREDENTIALS) {
+			for (String credential : DUMMY_USERNAMES) {
 				String[] pieces = credential.split(":");
 				if (pieces[0].equals(mUsername)) {
 					// Account exists, return true if the password matches.
