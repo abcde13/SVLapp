@@ -50,14 +50,19 @@ public class MainForm extends Activity {
 		EditText date = (EditText) findViewById(R.id.date);
 		EditText contribution = (EditText) findViewById(R.id.contribution_field);
 		EditText impact = (EditText) findViewById(R.id.impact_field);
-		EditText hours = (EditText) findViewById(R.id.hours_field);	
+		EditText hours = (EditText) findViewById(R.id.hours_field);
+		Spinner service_spinner = (Spinner) findViewById(R.id.service_type_spinner);
+		String service = service_spinner.getSelectedItem().toString();
 		Intent nextPage = new Intent(this, PictureActivity.class);
 		savePreferences("Date", date.getText().toString());
 		savePreferences("Contribution", contribution.getText().toString());
 		savePreferences("Impact", impact.getText().toString());
-		savePreferences("Hours", hours.getText().toString());	
-		startActivity(nextPage);
+		savePreferences("Hours", hours.getText().toString());
+		savePreferences("Service", service);
+		TextView text = new TextView(this);
+		text.setText(service);
+		setContentView(text);
+		//startActivity(nextPage);
 	}
-	
 
 }
