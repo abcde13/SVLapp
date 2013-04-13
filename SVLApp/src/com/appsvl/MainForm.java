@@ -59,10 +59,7 @@ public class MainForm extends Activity {
 		savePreferences("Impact", impact.getText().toString());
 		savePreferences("Hours", hours.getText().toString());
 		savePreferences("Service", service);
-		TextView text = new TextView(this);
-		text.setText(service);
-		setContentView(text);
-		//startActivity(nextPage);
+		startActivity(nextPage);
 	}
 
 }
