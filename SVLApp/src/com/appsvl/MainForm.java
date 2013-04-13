@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.view.Menu;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.Spinner;
 
 public class MainForm extends Activity {
@@ -35,6 +36,9 @@ public class MainForm extends Activity {
 	
 	public void nextPage(View view){
 		Intent nextPage = new Intent(this, PictureActivity.class);
+		//EditText editText = (EditText) findViewById(R.id.edit_message);
+		//String data = editText.getText().toString();
+		//nextPage.putExtra();
 		startActivity(nextPage);
 	}
 	
