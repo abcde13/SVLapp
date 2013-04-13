@@ -23,6 +23,7 @@
         <item>Educational</item>
         <item>Humanitarian</item>
     </string-array>
+        <string name="_mnt_sdcard_dcim_100media_service_png">/mnt/sdcard/DCIM/100MEDIA/service.png</string>
    	
 
 </resources>

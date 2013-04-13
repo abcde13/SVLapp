@@ -1,8 +1,16 @@
 package com.appsvl;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.util.List;
 
 import android.os.Bundle;
+import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.provider.MediaStore;
 import android.annotation.SuppressLint;
@@ -13,8 +21,12 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.graphics.Bitmap;
+import android.graphics.Bitmap.CompressFormat;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Matrix;
+import android.graphics.drawable.BitmapDrawable;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,7 +40,7 @@ import android.widget.LinearLayout;
 public class PictureActivity extends Activity {
 	
 	SharedPreferences sharedPref;
-	Bitmap mImageBitmap;
+	public static Bitmap mImageBitmap;
 	ImageView mImageView;
 	LinearLayout imageLayout;
 	Button submitButton;
@@ -37,10 +49,28 @@ public class PictureActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		sharedPref = MainForm.getPreferenceValues();
 		setContentView(R.layout.activity_picture);
 		imageLayout = (LinearLayout)findViewById(R.id.imageLayout);
-		if(mImageView!= null){
-			imageLayout.addView(mImageView);	
+		if(mImageBitmap != null){
+			mImageView = new ImageView(this);
+			imageLayout.addView(mImageView);
+			mImageView.setImageBitmap(mImageBitmap);
+			if(submitButton == null)
+			{
+				submitButton = new Button(this);
+				submitButton.setText("Submit");
+				submitButton.setTextSize(30.0f);
+				submitButton.setBackgroundColor(Color.CYAN);
+				LinearLayout x = (LinearLayout) findViewById(R.id.imglinearlayout);
+				x.addView(submitButton);
+				submitButton.setOnClickListener(new View.OnClickListener() {
+				    @Override
+				    public void onClick(View view) {
+				        submitForm(view);
+				    }
+				});
+			}
 		}
 	}
 
@@ -52,8 +82,9 @@ public class PictureActivity extends Activity {
 	}
 	
 
-	public void takePicture(View view){
+	public void takePicture(View view) throws FileNotFoundException{
 		takePic(TAKING_PIC);
+		
 	}
 	public void takePic(int actionCode){
 		if(imageLayout.getChildCount() > 0)
@@ -68,7 +99,9 @@ public class PictureActivity extends Activity {
 			resizeImage();
 			mImageView = new ImageView(this);
 			mImageView.setImageBitmap(mImageBitmap);
-			imageLayout.addView(mImageView);	
+			imageLayout.addView(mImageView);
+			
+		
 			
 		}
 	}
@@ -84,6 +117,7 @@ public class PictureActivity extends Activity {
 	    matrix.postScale(scaleWidth, scaleHeight);
 	    // recreate the new Bitmap
 	    mImageBitmap = Bitmap.createBitmap(mImageBitmap, 0, 0, width, height, matrix, false);
+	    
 	}
 	
 	@SuppressLint("ResourceAsColor")
@@ -122,7 +156,7 @@ public class PictureActivity extends Activity {
 	}
 	
 	public void submitForm(View view){	//Submit button just prints out values submitted from form.
-		sharedPref = MainForm.getPreferenceValues();
+		
 		TextView text = new TextView(this);
 		text.setText(sharedPref.getString("Date", null) + sharedPref.getString("Impact", null) + sharedPref.getString("Contribution", null)+ sharedPref.getString("Hours", null)+ sharedPref.getString("Service", null));
 		setContentView(text);		

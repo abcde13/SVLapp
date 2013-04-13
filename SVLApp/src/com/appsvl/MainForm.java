@@ -68,6 +68,5 @@ public class MainForm extends Activity {
 		savePreferences("Hours", hours.getText().toString());
 		savePreferences("Service", service);
 		startActivity(nextPage);
-		//CHANGE
 	}
 }
